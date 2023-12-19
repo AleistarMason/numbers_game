@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Number Game</title>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div class="col">
+                <h3>Options</h3>
+                <form action="/difficulty" method="post">
+                    <div>
+                        <label for="num">Max Value:</label>
+                        <select name="num" id="num">
+                            <option value="10">10</option>
+                            <option selected value="100">100</option>
+                            <option value="1000">1000</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="guess_amount">Guess Amount:</label>
+                        <select name="guess_amount" id="guess_amount">
+                            <option value="1">1</option>
+                            <option selected value="5">5</option>
+                            <option value="10">10</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Submit" class="submit btn">
+                </form>
+            </div>
+            <div class="col-3">
+                <h1><strong>THE GREAT NUMBER GAME!</strong></h1>
+            </div>
+            <div class="col">
+                <form action="/leaderboard"><button type="submit" class="leaderboard btn">Leaderboard</button></form>
+                <div class="col-3"></div>
+                <form action="/reset" method="post" onsubmit="return confirm('Are you sure you want to do this?')"><button type="submit" class="btn" style="background-color: red;">Resest</button></form>
+            </div>
+        </div>
+        <div id="main"  style="background-color: {{color}};">
+            {% if session['complete'] != True %}
+                <h4>I am thinking of a number between 1 and {{session['max_num']}}</h4>
+                <div style="width: {{width}}; height: {{height}};" class="row">
+                    <h1>{{results}}</h1>
+                </div>
+                <div class="row">
+                    <form action="/guess" method="post" class="col">
+                        <label for="guess">Take a Guess</label>
+                        <input type="number" name="guess">
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+                <p>{{session["guess_amount"]}} guesses left</p>
+            {% else %}
+                <div style="width: {{width}}; height: {{height}};" >
+                    <h1>{{results}}</h1>
+                </div>
+                <p>The answer was {{session['answer']}}</p>
+                {% if session['guess'] == session['answer']%}
+                    {% if session.get('leaderboard_submit') %}
+                        <form action="/leaderboard_submission" method="post">
+                            <label for="name" >Name:</label>
+                            <input type="text" name="name" placeholder="Your Name">
+                            <button type="submit" class="submit btn">Submit</button>
+                        </form>
+                    {% else %}
+                        <form action="/win" method="post"><input type="submit" value="Add Name to Leaderboard" class="submit btn"></form>
+                    {% endif %}
+                {% endif %}
+                <div class="row"><form action="/replay" method="post"><input type="submit" class="submit btn" value="Play Again"></form></div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+}
+
+/*need this so the container element reaches the bottom of the screen*/
+html, body{
+    height: 100%;
+}
+
+/*Container and all generalized elements*/
+#container{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lavender;
+}
+.col, .col-3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.col{
+    flex: 1;
+}
+.col *{
+    margin-bottom: 5px;
+}
+.col-3 {
+    flex: 3;
+}
+.row {
+    display: flex;
+}
+.leaderboard{
+    background-color: beige;
+}
+.btn{
+    border-radius: 2px;
+    box-shadow: 2px 4px black;
+}
+table{
+    width: 80%;
+    text-align: center;
+    border-collapse: collapse;
+}
+tr{
+    border-bottom: 1px solid #bbb;
+}
+td{
+    padding: 5px 0px;
+}
+
+/*Header specific elements*/
+#header {
+    width: 100%;
+    padding: 20px 0px;
+    background-color: teal;
+    display: flex;
+}
+#header h3, #header label {
+    color: whitesmoke;
+}
+#header h3 {
+    margin-bottom: 10px;
+}
+#header h1{
+    color: rgb(255, 90, 90);
+    margin: auto 0;
+}
+
+/*Main specific elements*/
+#main{
+    margin-top: 20px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#main *{
+    margin: 10px;
+    color: yellow;
+}
+#main input{
+    color: black;
+}
+#main .submit{
+    background-color: aqua;
+    color: black;
+}
+

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Leaderboard</title>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <div class="col-3">
+                <h1><strong>Leaderboard</strong></h1>
+            </div>
+        </div>
+        <div id="main"  style="background-color: darkslategrey;">
+            <h2><u>Winners List</u></h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Range</th>
+                        <th>Guess Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for player in session['winners'] %}
+                    <tr>
+                        <td>{{player['player_name']}}</td>
+                        <td>{{player['max_num']}}</td>
+                        <td>{{player['total_guesses']}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="row">
+                <form action="/reset" method="post" onsubmit="return confirm('Are you sure you want to do this?')"><button type="submit" class="btn" style="background-color: red;">Reset</button></form>
+                <form action="/replay" method="post"><input type="submit" class="submit btn" value="Back to Game"></form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
